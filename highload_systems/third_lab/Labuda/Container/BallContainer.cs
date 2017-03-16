@@ -18,81 +18,81 @@ namespace Container
         Blue
     }
 
-    public class BollContainer : ICloneable
+    public class BallContainer : ICloneable
     {
-        private readonly List<Color> bolls;
+        private readonly List<Color> balls;
 
-        public BollContainer() : this(Enumerable.Empty<Color>())
+        public BallContainer() : this(Enumerable.Empty<Color>())
         {
         }
 
-        public BollContainer(IEnumerable<Color> expectedBolls)
+        public BallContainer(IEnumerable<Color> expectedBalls)
         {
-            bolls = new List<Color>(expectedBolls);
+            balls = new List<Color>(expectedBalls);
         }
 
-        public BollContainer(BollContainer another)
+        public BallContainer(BallContainer another)
         {
-            bolls = new List<Color>(another.Bolls);
+            balls = new List<Color>(another.Balls);
         }
 
-        public Color[] Bolls => bolls.ToArray();
+        public Color[] Balls => balls.ToArray();
 
-        public BollContainer Add(Color boll)
+        public BallContainer Add(Color boll)
         {
-            bolls.Add(boll);
+            balls.Add(boll);
             return this;
         }
 
-        public BollContainer Add(IEnumerable<Color> bollCollection)
+        public BallContainer Add(IEnumerable<Color> bollCollection)
         {
-            bolls.AddRange(bollCollection);
+            balls.AddRange(bollCollection);
             return this;
         }
 
         public object Clone()
         {
-            return new BollContainer(this);
+            return new BallContainer(this);
         }
 
-        public static BollContainer operator +(BollContainer first, BollContainer second)
+        public static BallContainer operator +(BallContainer first, BallContainer second)
         {
-            return new BollContainer(first.Bolls.Concat(second.Bolls));
+            return new BallContainer(first.Balls.Concat(second.Balls));
         }
 
-        public static BollContainer operator -(BollContainer fist, BollContainer second)
+        public static BallContainer operator -(BallContainer fist, BallContainer second)
         {
-            var secondBolls = second.Bolls;
-            return new BollContainer(fist.Bolls.Where(x => !secondBolls.Contains(x)));
+            var secondBolls = second.Balls;
+            return new BallContainer(fist.Balls.Where(x => !secondBolls.Contains(x)));
         }
 
-        public bool Contains(BollContainer anotherContainer)
+        public bool Contains(BallContainer anotherContainer)
         {
-            return anotherContainer.Bolls.All(x => bolls.Contains(x));
+            return anotherContainer.Balls.All(x => balls.Contains(x));
         }
 
-        public BollContainer Clear()
+        public BallContainer Clear()
         {
-            bolls.Clear();
+            balls.Clear();
             return this;
         }
 
         public Color Extract(Color boll)
         {
-            if (!bolls.Contains(boll))
+            if (!balls.Contains(boll))
                 throw new ArgumentException("Нельзя изять несуществующий шар");
 
-            bolls.Remove(boll);
+            balls.Remove(boll);
             return boll;
         }
 
         public Color[] Extract(int count)
         {
-            if(bolls.Count < count)
+            if(balls.Count < count)
                 throw new ArgumentException("Нельзя изять столько шаров");
 
-            var extractedBolls = bolls.Take(count).ToArray();
-            bolls.RemoveRange(0, count);
+            var extractedBolls = balls.Take(count).ToArray();
+            balls.RemoveRange(0, count);
             return extractedBolls;
         }
     }
@@ -100,18 +100,18 @@ namespace Container
     [TestFixture]
     public class BollContainerShoud
     {
-        private BollContainer container;
+        private BallContainer container;
 
         [SetUp]
         public void Setup()
         {
-            container = new BollContainer();
+            container = new BallContainer();
         }
 
         [Test]
         public void GetEmptyArrayWhenIsEmpty()
         {
-            container.Bolls.Should().BeEmpty();
+            container.Balls.Should().BeEmpty();
         }
 
         [Test]
@@ -119,16 +119,16 @@ namespace Container
         {
             container.Add(Color.Red);
 
-            container.Bolls.Should().BeEquivalentTo(new[] {Color.Red});
+            container.Balls.Should().BeEquivalentTo(new[] {Color.Red});
         }
 
         [Test]
         public void CreatedWithGivenBolls()
         {
             var expectedBolls = new[] {Color.Red, Color.Gray, Color.White};
-            var anotherContainer = new BollContainer(expectedBolls);
+            var anotherContainer = new BallContainer(expectedBolls);
 
-            anotherContainer.Bolls.Should().BeEquivalentTo(expectedBolls);
+            anotherContainer.Balls.Should().BeEquivalentTo(expectedBolls);
         }
 
         [Test]
@@ -136,34 +136,34 @@ namespace Container
         {
             container.Add(Color.Red).Add(Color.Blue);
 
-            new BollContainer(container).Bolls.Should().BeEquivalentTo(container.Bolls).And.NotBeSameAs(container.Bolls);
+            new BallContainer(container).Balls.Should().BeEquivalentTo(container.Balls).And.NotBeSameAs(container.Balls);
         }
 
         [Test]
         public void AddAnotherContainerBolls()
         {
-            var expectedBolls = new[] {Color.Red, Color.Gray, Color.Blue, Color.Red};
+            var expectedBalls = new[] {Color.Red, Color.Gray, Color.Blue, Color.Red};
             container.Add(Color.Red).Add(Color.Gray);
-            var anotherContainer = new BollContainer(new[] {Color.Blue, Color.Red});
+            var anotherContainer = new BallContainer(new[] {Color.Blue, Color.Red});
 
-            (container + anotherContainer).Bolls.Should().BeEquivalentTo(expectedBolls);
+            (container + anotherContainer).Balls.Should().BeEquivalentTo(expectedBalls);
         }
 
         [Test]
         public void SubstractAnotherContainerBolls()
         {
-            var expectedBolls = new[] {Color.Gray};
+            var expectedBalls = new[] {Color.Gray};
             container.Add(Color.Red).Add(Color.Gray);
-            var anotherContainer = new BollContainer(new[] {Color.Blue, Color.Red});
+            var anotherContainer = new BallContainer(new[] {Color.Blue, Color.Red});
 
-            (container - anotherContainer).Bolls.Should().BeEquivalentTo(expectedBolls);
+            (container - anotherContainer).Balls.Should().BeEquivalentTo(expectedBalls);
         }
 
         [Test]
         public void ContainsAnotherContainerWhenIsContainAllItsBolls()
         {
             container.Add(new[] {Color.Black, Color.Blue, Color.Gray, Color.White});
-            var anotherContainer = new BollContainer(new[] {Color.Blue, Color.White});
+            var anotherContainer = new BallContainer(new[] {Color.Blue, Color.White});
 
             container.Contains(anotherContainer).Should().BeTrue();
         }
@@ -172,7 +172,7 @@ namespace Container
         public void NotContainsAnotherContainerWhenIsContainNotAllItsBolls()
         {
             container.Add(new[] {Color.Black, Color.Blue, Color.Gray});
-            var anotherContainer = new BollContainer(new[] {Color.Blue, Color.White});
+            var anotherContainer = new BallContainer(new[] {Color.Blue, Color.White});
 
             container.Contains(anotherContainer).Should().BeFalse();
         }
@@ -180,18 +180,18 @@ namespace Container
         [Test]
         public void ClearAllBolls()
         {
-            container.Add(Color.Blue).Clear().Bolls.Should().BeEmpty();
+            container.Add(Color.Blue).Clear().Balls.Should().BeEmpty();
         }
 
         [Test]
         public void ExtractBollFromContainer()
         {
-            var expectedBolls = new[] {Color.Red, Color.White};
-            container.Add(expectedBolls).Add(Color.Black);
+            var expectedBalls = new[] {Color.Red, Color.White};
+            container.Add(expectedBalls).Add(Color.Black);
 
             container.Extract(Color.Black);
 
-            container.Bolls.Should().BeEquivalentTo(expectedBolls);
+            container.Balls.Should().BeEquivalentTo(expectedBalls);
         }
 
         [Test]
@@ -209,7 +209,7 @@ namespace Container
 
             container.Extract(2);
 
-            container.Bolls.Should().HaveCount(1);
+            container.Balls.Should().HaveCount(1);
         }
 
         [Test]
@@ -221,4 +221,3 @@ namespace Container
         }
     }
 }
-

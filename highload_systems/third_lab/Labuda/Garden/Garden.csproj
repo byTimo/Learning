@@ -50,14 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleDrawer.cs" />
+    <Compile Include="Drawing\ConsoleDrawer.cs" />
+    <Compile Include="Drawing\DiffCalculator.cs" />
+    <Compile Include="Drawing\IDiffCalculator.cs" />
+    <Compile Include="Drawing\IDrawer.cs" />
+    <Compile Include="Drawing\Position.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="Flowerbed\Plant.cs" />
-    <Compile Include="Flowerbed\PlantPart.cs" />
+    <Compile Include="Flowerbed\Flower.cs" />
+    <Compile Include="Flowerbed\Gress.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="IDrawer.cs" />
+    <Compile Include="Flowerbed\IGrowable.cs" />
+    <Compile Include="Flowerbed\PlantSegment.cs" />
+    <Compile Include="Genetics\Dna.cs" />
+    <Compile Include="IClonable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\Plant_Should.cs" />
+    <Compile Include="Tests\DiffCalculator_Should_Compare.cs" />
+    <Compile Include="Tests\Gress_Should.cs" />
     <Compile Include="Yard.cs" />
   </ItemGroup>
   <ItemGroup>

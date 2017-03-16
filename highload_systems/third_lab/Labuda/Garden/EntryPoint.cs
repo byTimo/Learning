@@ -6,7 +6,7 @@ namespace Garden
     {
         public static void Main(string[] args)
         {
-            Yard.Plant(25).WatchBefor(() => Console.KeyAvailable).Wait();
+            Yard.Seed(100).WatchWhile(() => !Console.KeyAvailable).Wait();
         }
     }
 }

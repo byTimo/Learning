@@ -1,6 +1,6 @@
-﻿namespace Garden.Flowerbed
+namespace Garden.Flowerbed
 {
-    internal enum PlantPart
+    public enum PlantSegment
     {
         Seed,
         Sqrout,
