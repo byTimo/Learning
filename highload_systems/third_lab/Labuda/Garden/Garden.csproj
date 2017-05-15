@@ -50,22 +50,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\ConsoleDrawer.cs" />
-    <Compile Include="Drawing\DiffCalculator.cs" />
-    <Compile Include="Drawing\IDiffCalculator.cs" />
-    <Compile Include="Drawing\IDrawer.cs" />
-    <Compile Include="Drawing\Position.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Flowerbed\Flower.cs" />
     <Compile Include="Flowerbed\Gress.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="Flowerbed\IGrowable.cs" />
-    <Compile Include="Flowerbed\PlantSegment.cs" />
+    <Compile Include="Flowerbed\Model\GrowingPosition.cs" />
+    <Compile Include="Flowerbed\Model\IGrowable.cs" />
+    <Compile Include="Flowerbed\Model\Plant.cs" />
+    <Compile Include="Flowerbed\Model\PlantSegment.cs" />
+    <Compile Include="Flowerbed\Shrub.cs" />
     <Compile Include="Genetics\Dna.cs" />
-    <Compile Include="IClonable.cs" />
+    <Compile Include="Genetics\DnaBuilder.cs" />
+    <Compile Include="Genetics\GrowingAction.cs" />
+    <Compile Include="Genetics\GrowingActionBuilder.cs" />
+    <Compile Include="Genetics\GrowingCondition.cs" />
+    <Compile Include="Genetics\GrowingConditionBuilder.cs" />
+    <Compile Include="Genetics\GrowingRule.cs" />
+    <Compile Include="Genetics\IGrowingAction.cs" />
+    <Compile Include="Genetics\IGrowingCondition.cs" />
+    <Compile Include="Genetics\IGrowingRule.cs" />
+    <Compile Include="Genetics\PlantNode.cs" />
+    <Compile Include="Genetics\PlantTree.cs" />
+    <Compile Include="Genetics\SmallSheetGrowingRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\BlockProjector_Should_Project.cs" />
     <Compile Include="Tests\DiffCalculator_Should_Compare.cs" />
-    <Compile Include="Tests\Gress_Should.cs" />
+    <Compile Include="Tests\Flower_Should_Grow.cs" />
+    <Compile Include="Tests\Gress_Should_Grow.cs" />
+    <Compile Include="Tests\Shrub_Should_Grow.cs" />
+    <Compile Include="Utility\Drawing\BlockProjector.cs" />
+    <Compile Include="Utility\Drawing\ConsoleDrawer.cs" />
+    <Compile Include="Utility\Drawing\DiffCalculator.cs" />
+    <Compile Include="Utility\Drawing\IBlockProjector.cs" />
+    <Compile Include="Utility\Drawing\IDiffCalculator.cs" />
+    <Compile Include="Utility\Drawing\IDrawer.cs" />
+    <Compile Include="Utility\Drawing\Position.cs" />
+    <Compile Include="Utility\EnumerableExtensions.cs" />
+    <Compile Include="Utility\RandomHelper.cs" />
     <Compile Include="Yard.cs" />
   </ItemGroup>
   <ItemGroup>

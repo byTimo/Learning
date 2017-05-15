@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Garden.Drawing;
 using Garden.Flowerbed;
+using Garden.Flowerbed.Model;
+using Garden.Utility;
+using Garden.Utility.Drawing;
 
 namespace Garden
 {
     internal class Yard
     {
-        private const int DrawingIntervalMilliseconds = 100;
-
-        private static readonly Random random = new Random();
-        private readonly IDrawer drawer = new ConsoleDrawer(new DiffCalculator());
+        private const int DrawingIntervalMilliseconds = 50;
+        private readonly IDrawer drawer = new ConsoleDrawer();
         private readonly ManualResetEvent drawingEvent = new ManualResetEvent(true);
         private readonly IGrowable[] plants;
 
@@ -22,12 +22,19 @@ namespace Garden
             this.plants = plants.ToArray();
         }
 
-        public static Yard Seed(int flowersCount)
+        public static Yard DigOut(int gardenBedCount)
         {
-            if (flowersCount < 0)
+            if (gardenBedCount < 0)
                 throw new ArgumentException("Ты пытаешься посадить что-то не то!");
 
-            return new Yard(Enumerable.Range(0, flowersCount).Select(x => SeedAnything()));
+            return new Yard(Enumerable.Range(0, gardenBedCount).Select(x => SeedAnything()));
+        }
+
+        public Yard Seed(IGrowable plant, int bed = -1)
+        {
+            bed = bed == -1 ? RandomHelper.Int(plants.Length) : bed;
+            plants[bed] = plant;
+            return this;
         }
 
         public Task Watch()
@@ -69,7 +76,7 @@ namespace Garden
                     while (true)
                     {
                         token.ThrowIfCancellationRequested();
-                        await Task.Delay(random.Next(1000, 3000), token);
+                        await Task.Delay(x.GrowingTime, token);
                         drawingEvent.WaitOne();
                         x.Grow();
                     }
@@ -79,7 +86,7 @@ namespace Garden
 
         private static IGrowable SeedAnything()
         {
-            return random.NextDouble() > 0.8d ? (IGrowable) new Flower() : new Gress();
+            return RandomHelper.Boolean(0.2) ? (IGrowable) new Flower() : new Gress();
         }
     }
 }

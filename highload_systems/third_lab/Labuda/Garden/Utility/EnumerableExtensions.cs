@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Garden
+namespace Garden.Utility
 {
     public static class EnumerableExtensions
     {

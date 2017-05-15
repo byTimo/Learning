@@ -1,4 +1,4 @@
-namespace Garden.Drawing
+namespace Garden.Utility.Drawing
 {
     public struct Position
     {
@@ -29,6 +29,11 @@ namespace Garden.Drawing
             {
                 return (X * 397) ^ Y;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y}";
         }
     }
 }

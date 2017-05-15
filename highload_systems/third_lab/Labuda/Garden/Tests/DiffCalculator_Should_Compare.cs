@@ -1,7 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using Garden.Drawing;
 using Garden.Flowerbed;
+using Garden.Flowerbed.Model;
+using Garden.Genetics;
+using Garden.Utility.Drawing;
 using NUnit.Framework;
 
 namespace Garden.Tests
@@ -45,6 +47,15 @@ namespace Garden.Tests
                 .Should()
                 .HaveCount(1)
                 .And.Contain(new Position(0, 1), PlantSegment.Sqrout);
+        }
+
+        [Test]
+        public void GiveGrowed()
+        {
+            var first = new IGrowable[] { new Gress(new []{PlantSegment.Seed})};
+            var second = new IGrowable[] { new Gress(new []{PlantSegment.Wood})};
+
+            calculator.Compare(first, second).Should().HaveCount(1).And.Contain(new Position(0, 0), PlantSegment.Wood);
         }
     }
 }

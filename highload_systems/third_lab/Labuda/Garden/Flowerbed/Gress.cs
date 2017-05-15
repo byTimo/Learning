@@ -1,40 +1,26 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Garden.Flowerbed.Model;
 using Garden.Genetics;
 
 namespace Garden.Flowerbed
 {
-    public class Gress : IGrowable
+    public class Gress : Plant
     {
-        private readonly Dna dna;
-        private readonly IList<PlantSegment> segments;
-
-        public Gress() : this(new Dna(1))
+        public Gress()
         {
         }
 
-        public Gress(Dna dna) : this(dna, new[] {PlantSegment.Seed})
+        public Gress(IEnumerable<PlantSegment> segments) : base(segments)
         {
         }
 
-        private Gress(Dna dna, IEnumerable<PlantSegment> segments)
+        protected override Dna CreateDna()
         {
-            this.dna = dna;
-            this.segments = new List<PlantSegment>(segments);
-        }
-
-        public PlantSegment[] Segments => segments.ToArray();
-
-        public IGrowable Grow()
-        {
-            if (segments.Count - 1 < dna.Length)
-                segments.Add(PlantSegment.Sqrout);
-            return this;
-        }
-
-        public IGrowable Clone()
-        {
-            return new Gress(dna, Segments);
+            return new DnaBuilder()
+                .AddGrowingRule(c => c.WhenNotMaxLength(),
+                                a => a.Then(t => t.Add(PlantSegment.Sqrout)))
+                .SetMaxLegth(2)
+                .Build();
         }
     }
 }

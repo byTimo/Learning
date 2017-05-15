@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Garden.Flowerbed;
+using Garden.Flowerbed.Model;
 
-namespace Garden.Drawing
+namespace Garden.Utility.Drawing
 {
     public interface IDrawer
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Garden.Flowerbed;
 
 namespace Garden
 {
@@ -6,7 +7,25 @@ namespace Garden
     {
         public static void Main(string[] args)
         {
-            Yard.Seed(100).WatchWhile(() => !Console.KeyAvailable).Wait();
+            Yard.DigOut(100)
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .Seed(new Shrub())
+                .WatchWhile(() => !Console.KeyAvailable)
+                .Wait();
         }
     }
 }
